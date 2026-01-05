@@ -11,6 +11,7 @@ import Foundation
 class CoinsViewModel {
     var coin = ""
     var price = ""
+    var errorMessage: String?
 
     init() {
         fetchPrice(coin: "bitcoin")
@@ -22,17 +23,27 @@ class CoinsViewModel {
 
 
         URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
-
-            guard let value = jsonObject[coin] as? [String: Double] else { return }
-            guard let price = value["usd"] else { return }
             DispatchQueue.main.async {
+                if let error = error {
+                    print("DEBUG: Failed with error \(error.localizedDescription)")
+                    self.errorMessage = error.localizedDescription
+                    return
+                }
+
+                guard let data = data else { return }
+                guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
+
+                guard let value = jsonObject[coin] as? [String: Double] else {
+                    print("Failed to parse value")
+                    return
+                }
+
+                guard let price = value["usd"] else { return }
+
                 self.coin = coin.capitalized
                 self.price = "$\(price)"
             }
         }
         .resume()
-
     }
 }
