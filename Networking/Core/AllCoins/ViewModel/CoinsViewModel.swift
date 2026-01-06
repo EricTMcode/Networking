@@ -23,11 +23,8 @@ class CoinsViewModel {
         do {
             self.coins = try await service.fetchCoins()
         } catch {
-            if let error = error as? CoinApiError {
-                self.errorMessage = error.customDescription
-            } else {
-                self.errorMessage = error.localizedDescription
-            }
+            guard let error = error as? CoinApiError else { return }
+            self.errorMessage = error.customDescription
         }
     }
 }
