@@ -15,28 +15,10 @@ class CoinsViewModel {
     private let service = CoinDataService()
 
     init() {
-        fetchCoins()
+        Task { try await fetchCoins() }
     }
 
-    func fetchCoins() {
-        service.fetchCoinsWithResult { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let coins):
-                    self.coins = coins
-                case .failure(let error):
-                    self.errorMessage = "\(error.localizedDescription)"
-                }
-            }
-        }
-//        service.fetchCoins { coins, error in
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    self.errorMessage = "\(error.localizedDescription)"
-//                    return
-//                }
-//                    self.coins = coins ?? []
-//            }
-//        }
+    func fetchCoins() async throws {
+        self.coins = try await service.fetchCoins()
     }
 }
