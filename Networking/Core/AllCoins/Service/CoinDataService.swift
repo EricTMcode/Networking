@@ -8,13 +8,12 @@
 import Foundation
 
 class CoinDataService {
-    func fetchPrice(coin: String) {
+    func fetchPrice(coin: String, completion: @escaping(Double) -> Void) {
         let urlString = "https://api.coingecko.com/api/v3/simple/price?ids=\(coin)&vs_currencies=usd"
         guard let url = URL(string: urlString) else { return }
 
 
         URLSession.shared.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
                 if let error = error {
                     print("DEBUG: Failed with error \(error.localizedDescription)")
 //                    self.errorMessage = error.localizedDescription
@@ -45,7 +44,8 @@ class CoinDataService {
 
 //                self.coin = coin.capitalized
 //                self.price = "$\(price)"
-            }
+                print("DEBUG: Price in service is \(price)")
+                completion(price)
         }
         .resume()
     }
