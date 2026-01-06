@@ -20,9 +20,7 @@ class CoinsViewModel {
     func fetchCoins() {
         service.fetchCoins { coins in
             DispatchQueue.main.async {
-                for coin in coins {
                     self.coins = coins
-                }
             }
         }
     }
