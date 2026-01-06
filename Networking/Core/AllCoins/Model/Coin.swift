@@ -19,6 +19,4 @@ struct Coin: Codable, Identifiable {
         case currentPrice = "current_price"
         case marketCapRank = "market_cap_rank"
     }
-
-
 }
