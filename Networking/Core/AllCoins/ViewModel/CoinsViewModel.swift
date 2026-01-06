@@ -30,6 +30,18 @@ class CoinsViewModel {
                     return
                 }
 
+                guard let HTTPResponse = response as? HTTPURLResponse else {
+                    self.errorMessage = "Bad HTTP Response"
+                    return
+                }
+
+                guard HTTPResponse.statusCode == 200 else {
+                    self.errorMessage = "Failed to fetch with status code \(HTTPResponse.statusCode)"
+                    return
+                }
+
+                print("DEBUG: Response code is \(HTTPResponse.statusCode)")
+
                 guard let data = data else { return }
                 guard let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
 
