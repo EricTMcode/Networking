@@ -20,6 +20,7 @@ class CoinDetailsViewModel: ObservableObject {
         Task { await fetchCoinDetails() }
     }
 
+    @MainActor
     func fetchCoinDetails() async {
         do {
             let details = try await service.fetchCoinDetails(id: coinID)
