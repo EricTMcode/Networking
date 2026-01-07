@@ -35,7 +35,7 @@ class CoinDataService {
     func fetchCoinDetails(id: String) async throws -> CoinDetails? {
 
         let detailsURLString = "https://api.coingecko.com/api/v3/coins/\(id)?localization=false"
-        
+
         guard let url = URL(string: detailsURLString) else { return nil }
 
         let (data, response) = try await URLSession.shared.data(from: url)
