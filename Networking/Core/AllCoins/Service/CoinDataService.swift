@@ -8,6 +8,20 @@
 import Foundation
 
 class CoinDataService: HTTPDataDownloader {
+    func fetchCoins() async throws -> [Coin] {
+        guard let endpoint = allCoinsURLString else {
+            throw CoinApiError.requestFailed(description: "Invalid Endpoint")
+        }
+        return try await fetchData(as: [Coin].self, endpoint: endpoint)
+    }
+
+    func fetchCoinDetails(id: String) async throws -> CoinDetails? {
+        guard let endpoint = coinDetailsURLString(id: id) else {
+            throw CoinApiError.requestFailed(description: "Invalid Endpoint")
+        }
+        return try await fetchData(as: CoinDetails.self, endpoint: endpoint)
+    }
+
     private var baseURLComponents: URLComponents {
         var components = URLComponents()
         components.scheme = "https"
@@ -35,15 +49,13 @@ class CoinDataService: HTTPDataDownloader {
 
     }
 
-    func fetchCoins() async throws -> [Coin] {
-        guard let endpoint = allCoinsURLString else {
-            throw CoinApiError.requestFailed(description: "Invalid Endpoint")
-        }
-        return try await fetchData(as: [Coin].self, endpoint: endpoint)
-    }
+    private func coinDetailsURLString(id: String) -> String? {
+        var components = baseURLComponents
+        components.path += "\(id)"
+        components.queryItems = [
+            .init(name: "localization", value: "false")
+        ]
 
-    func fetchCoinDetails(id: String) async throws -> CoinDetails? {
-        let detailsURLString = "https://api.coingecko.com/api/v3/coins/\(id)?localization=false"
-        return try await fetchData(as: CoinDetails.self, endpoint: detailsURLString)
+        return components.url?.absoluteString
     }
 }
