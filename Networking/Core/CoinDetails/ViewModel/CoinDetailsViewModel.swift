@@ -24,6 +24,7 @@ class CoinDetailsViewModel: ObservableObject {
         do {
             let details = try await service.fetchCoinDetails(id: coinID)
             print("DEBUG: Details \(details)")
+            self.coinDetails = details
         } catch {
             print("DEBUG: Error \(error.localizedDescription)")
         }
