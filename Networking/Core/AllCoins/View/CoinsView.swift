@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CoinsView: View {
-    @State var viewModel = CoinsViewModel()
+    @StateObject var viewModel = CoinsViewModel()
 
     var body: some View {
         NavigationStack {

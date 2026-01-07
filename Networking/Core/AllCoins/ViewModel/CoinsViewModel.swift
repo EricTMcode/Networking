@@ -7,10 +7,9 @@
 
 import Foundation
 
-@Observable
-class CoinsViewModel {
-    var coins = [Coin]()
-    var errorMessage: String?
+class CoinsViewModel: ObservableObject {
+    @Published var coins = [Coin]()
+    @Published var errorMessage: String?
 
     private let service = CoinDataService()
 
