@@ -17,9 +17,9 @@ struct CoinDetailsView: View {
     }
 
     var body: some View {
-        if let details = viewModel.coinDetails {
-            ScrollView {
-                VStack(alignment: .leading) {
+        ScrollView {
+            VStack(alignment: .leading) {
+                if let details = viewModel.coinDetails {
                     Text(details.name)
                         .fontWeight(.semibold)
                         .font(.subheadline)
@@ -31,8 +31,12 @@ struct CoinDetailsView: View {
                         .font(.footnote)
                         .padding(.vertical)
                 }
-                .padding()
             }
+            .onAppear {
+                print("DEBUG: Detail view did apear")
+            }
+            .task { await viewModel.fetchCoinDetails() }
+            .padding()
         }
     }
 }
