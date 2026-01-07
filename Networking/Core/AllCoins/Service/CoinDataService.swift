@@ -11,17 +11,7 @@ class CoinDataService {
     private let urlString = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false&price_change_percentage=24h&locale=en"
 
     func fetchCoins() async throws -> [Coin] {
-        guard let url = URL(string: urlString) else { return [] }
-
-        let (data, response) =  try await URLSession.shared.data(from: url)
-
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw CoinApiError.requestFailed(description: "Request failed")
-        }
-
-        guard httpResponse.statusCode == 200 else {
-            throw CoinApiError.invalidStatusCode(statusCode: httpResponse.statusCode)
-        }
+        let data = try await fetchData(endpoint: urlString)
 
         do {
             let coins = try JSONDecoder().decode([Coin].self, from: data)
@@ -35,8 +25,21 @@ class CoinDataService {
     func fetchCoinDetails(id: String) async throws -> CoinDetails? {
 
         let detailsURLString = "https://api.coingecko.com/api/v3/coins/\(id)?localization=false"
+        let data = try await fetchData(endpoint: detailsURLString)
 
-        guard let url = URL(string: detailsURLString) else { return nil }
+        do {
+            let details = try JSONDecoder().decode(CoinDetails.self, from: data)
+            return details
+        } catch {
+            print("DEBUG: Error: \(error)")
+            throw error as? CoinApiError ?? .unknownError(error: error)
+        }
+    }
+
+    private func fetchData(endpoint: String) async throws -> Data {
+        guard let url = URL(string: endpoint) else {
+            throw CoinApiError.requestFailed(description: "Invalid URL")
+        }
 
         let (data, response) = try await URLSession.shared.data(from: url)
 
@@ -48,12 +51,6 @@ class CoinDataService {
             throw CoinApiError.invalidStatusCode(statusCode: httpResponse.statusCode)
         }
 
-        do {
-            let details = try JSONDecoder().decode(CoinDetails.self, from: data)
-            return details
-        } catch {
-            print("DEBUG: Error: \(error)")
-            throw error as? CoinApiError ?? .unknownError(error: error)
-        }
+        return data
     }
 }

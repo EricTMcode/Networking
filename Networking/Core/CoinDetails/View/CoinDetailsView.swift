@@ -32,9 +32,6 @@ struct CoinDetailsView: View {
                         .padding(.vertical)
                 }
             }
-            .onAppear {
-                print("DEBUG: Detail view did apear")
-            }
             .task { await viewModel.fetchCoinDetails() }
             .padding()
         }
