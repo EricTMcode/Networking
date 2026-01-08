@@ -11,9 +11,9 @@ struct CoinDetailsView: View {
     let coin: Coin
     @ObservedObject var viewModel: CoinDetailsViewModel
 
-    init(coin: Coin) {
+    init(coin: Coin, service: CoinDataService) {
         self.coin = coin
-        self.viewModel = CoinDetailsViewModel(coinID: coin.id)
+        self.viewModel = CoinDetailsViewModel(coinID: coin.id, service: service)
     }
 
     var body: some View {
@@ -38,6 +38,6 @@ struct CoinDetailsView: View {
     }
 }
 
-#Preview {
-    CoinDetailsView(coin: Coin.mockCoins[0])
-}
+//#Preview {
+//    CoinDetailsView(coin: Coin.mockCoins[0])
+//}

@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct CoinsView: View {
-    @StateObject var viewModel = CoinsViewModel()
+    private let service: CoinDataService
+    @StateObject var viewModel: CoinsViewModel
+
+    init(service: CoinDataService) {
+        self.service = service
+        self._viewModel = StateObject(wrappedValue: CoinsViewModel(service: service))
+    }
 
     var body: some View {
         NavigationStack {
@@ -31,7 +37,7 @@ struct CoinsView: View {
                 }
             }
             .navigationDestination(for: Coin.self) { coin in
-                CoinDetailsView(coin: coin)
+                CoinDetailsView(coin: coin, service: service)
             }
             .overlay {
                 if let error = viewModel.errorMessage {
@@ -44,5 +50,5 @@ struct CoinsView: View {
 }
 
 #Preview {
-    CoinsView()
+    CoinsView(service: CoinDataService())
 }
