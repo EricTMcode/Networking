@@ -12,46 +12,46 @@ class MockCoinService: CoinServiceProtocol {
     var mockData: Data?
     var mockError: CoinApiError?
 
-//    func fetchCoins() async throws -> [Coin] {
-//        if let mockError { throw mockError }
-//        
-//        do {
-//            let coins = try JSONDecoder().decode([Coin].self, from: mockData ?? mockCoinsData_marketCapDesc)
-//            return coins
-//        } catch {
-//            throw error as? CoinApiError ?? .unknownError(error: error)
-//        }
-//    }
-    
     func fetchCoins() async throws -> [Coin] {
-//        //        let bitcoin = Coin(id: "bitcoin", symbol: "btc", name: "Bitcoin", currentPrice: 26000, marketCapRank: 1)
-//        //        return [bitcoin, bitcoin, bitcoin]
-//
-        let mockCoins: [Coin] = [
-            Coin(id: "bitcoin", symbol: "BTC", name: "BIT COIN COIN", currentPrice: 24000, marketCapRank: 1),
-            Coin(id: "chatEthereum", symbol: "ETH", name: "ChatEthereum", currentPrice: 1600, marketCapRank: 2),
-            Coin(id: "tether", symbol: "USDT", name: "Tether", currentPrice: 1, marketCapRank: 3),
-            Coin(id: "binancecoin", symbol: "BNB", name: "BNB", currentPrice: 210, marketCapRank: 4),
-            Coin(id: "usd-coin", symbol: "USDC", name: "USD Coin", currentPrice: 1, marketCapRank: 5),
-            Coin(id: "xrp", symbol: "XRP", name: "XRP", currentPrice: 0.55, marketCapRank: 6),
-            Coin(id: "cardano", symbol: "ADA", name: "Cardano", currentPrice: 0.38, marketCapRank: 7),
-            Coin(id: "dogecoin", symbol: "DOGE", name: "Dogecoin", currentPrice: 0.08, marketCapRank: 8),
-            Coin(id: "solana", symbol: "SOL", name: "Solana", currentPrice: 22, marketCapRank: 9),
-            Coin(id: "tron", symbol: "TRX", name: "TRON", currentPrice: 0.09, marketCapRank: 10),
-            Coin(id: "polkadot", symbol: "DOT", name: "Polkadot", currentPrice: 5.2, marketCapRank: 11),
-            Coin(id: "litecoin", symbol: "LTC", name: "Litecoin", currentPrice: 65, marketCapRank: 12),
-            Coin(id: "polygon", symbol: "MATIC", name: "Polygon", currentPrice: 0.75, marketCapRank: 13),
-            Coin(id: "shiba-inu", symbol: "SHIB", name: "Shiba Inu", currentPrice: 0.000008, marketCapRank: 14),
-            Coin(id: "avalanche", symbol: "AVAX", name: "Avalanche", currentPrice: 14.5, marketCapRank: 15),
-            Coin(id: "chainlink", symbol: "LINK", name: "Chainlink", currentPrice: 6.3, marketCapRank: 16),
-            Coin(id: "uniswap", symbol: "UNI", name: "Uniswap", currentPrice: 4.9, marketCapRank: 17),
-            Coin(id: "cosmos", symbol: "ATOM", name: "Cosmos", currentPrice: 9.1, marketCapRank: 18),
-            Coin(id: "monero", symbol: "XMR", name: "Monero", currentPrice: 145, marketCapRank: 19),
-            Coin(id: "stellar", symbol: "XLM", name: "Stellar", currentPrice: 0.12, marketCapRank: 20)
-        ]
-
-        return mockCoins
+        if let mockError { throw mockError }
+        
+        do {
+            let coins = try JSONDecoder().decode([Coin].self, from: mockData ?? mockCoinsData_marketCapDesc)
+            return coins
+        } catch {
+            throw error as? CoinApiError ?? .unknownError(error: error)
+        }
     }
+    
+//    func fetchCoins() async throws -> [Coin] {
+////        //        let bitcoin = Coin(id: "bitcoin", symbol: "btc", name: "Bitcoin", currentPrice: 26000, marketCapRank: 1)
+////        //        return [bitcoin, bitcoin, bitcoin]
+////
+//        let mockCoins: [Coin] = [
+//            Coin(id: "bitcoin", symbol: "BTC", name: "BIT COIN COIN", currentPrice: 24000, marketCapRank: 1),
+//            Coin(id: "chatEthereum", symbol: "ETH", name: "ChatEthereum", currentPrice: 1600, marketCapRank: 2),
+//            Coin(id: "tether", symbol: "USDT", name: "Tether", currentPrice: 1, marketCapRank: 3),
+//            Coin(id: "binancecoin", symbol: "BNB", name: "BNB", currentPrice: 210, marketCapRank: 4),
+//            Coin(id: "usd-coin", symbol: "USDC", name: "USD Coin", currentPrice: 1, marketCapRank: 5),
+//            Coin(id: "xrp", symbol: "XRP", name: "XRP", currentPrice: 0.55, marketCapRank: 6),
+//            Coin(id: "cardano", symbol: "ADA", name: "Cardano", currentPrice: 0.38, marketCapRank: 7),
+//            Coin(id: "dogecoin", symbol: "DOGE", name: "Dogecoin", currentPrice: 0.08, marketCapRank: 8),
+//            Coin(id: "solana", symbol: "SOL", name: "Solana", currentPrice: 22, marketCapRank: 9),
+//            Coin(id: "tron", symbol: "TRX", name: "TRON", currentPrice: 0.09, marketCapRank: 10),
+//            Coin(id: "polkadot", symbol: "DOT", name: "Polkadot", currentPrice: 5.2, marketCapRank: 11),
+//            Coin(id: "litecoin", symbol: "LTC", name: "Litecoin", currentPrice: 65, marketCapRank: 12),
+//            Coin(id: "polygon", symbol: "MATIC", name: "Polygon", currentPrice: 0.75, marketCapRank: 13),
+//            Coin(id: "shiba-inu", symbol: "SHIB", name: "Shiba Inu", currentPrice: 0.000008, marketCapRank: 14),
+//            Coin(id: "avalanche", symbol: "AVAX", name: "Avalanche", currentPrice: 14.5, marketCapRank: 15),
+//            Coin(id: "chainlink", symbol: "LINK", name: "Chainlink", currentPrice: 6.3, marketCapRank: 16),
+//            Coin(id: "uniswap", symbol: "UNI", name: "Uniswap", currentPrice: 4.9, marketCapRank: 17),
+//            Coin(id: "cosmos", symbol: "ATOM", name: "Cosmos", currentPrice: 9.1, marketCapRank: 18),
+//            Coin(id: "monero", symbol: "XMR", name: "Monero", currentPrice: 145, marketCapRank: 19),
+//            Coin(id: "stellar", symbol: "XLM", name: "Stellar", currentPrice: 0.12, marketCapRank: 20)
+//        ]
+//
+//        return mockCoins
+//    }
 
 
     func fetchCoinDetails(id: String) async throws -> CoinDetails? {

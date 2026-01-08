@@ -21,9 +21,7 @@ class CoinDataService: CoinServiceProtocol, HTTPDataDownloader {
     }
 
     func fetchCoins() async throws -> [Coin] {
-        print("DEBUG: page before incrementing \(page)")
         page += 1
-        print("DEBUG: page after incrementing \(page)")
 
         guard let endpoint = allCoinsURLString else {
             throw CoinApiError.requestFailed(description: "Invalid Endpoint")

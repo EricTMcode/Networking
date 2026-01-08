@@ -25,6 +25,15 @@ struct CoinsView: View {
                             Text("\(coin.marketCapRank)")
                                 .foregroundStyle(.gray)
 
+                            AsyncImage(url: URL(string: coin.image)) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 32, height: 32)
+                            } placeholder: {
+                                ProgressView()
+                            }
+
+
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(coin.name)
                                     .fontWeight(.semibold)
@@ -52,6 +61,7 @@ struct CoinsView: View {
                 }
             }
         }
+        .task { await viewModel.fetchCoins() }
     }
 }
 
