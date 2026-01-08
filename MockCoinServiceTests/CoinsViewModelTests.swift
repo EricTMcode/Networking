@@ -30,11 +30,27 @@ final class CoinsViewModelTests: XCTestCase {
 
 
     func testCoinFetchWithInvalidJSON() async {
+        let service = MockCoinService()
+        service.mockData = mockCoins_invalidJSON
 
+        let viewModel = CoinsViewModel(service: service)
+
+        await viewModel.fetchCoins()
+
+        XCTAssertTrue(viewModel.coins.isEmpty)
+        XCTAssertNotNil(viewModel.errorMessage)
     }
 
     func testThrowsInvalidDataError() async {
+        let service = MockCoinService()
+        service.mockError = CoinApiError.invalidData
 
+        let viewModel = CoinsViewModel(service: service)
+
+        await viewModel.fetchCoins()
+
+        XCTAssertNotNil(viewModel.errorMessage)
+        XCTAssertEqual(viewModel.errorMessage, CoinApiError.invalidData.customDescription)
     }
 
 }
