@@ -11,8 +11,8 @@ import SwiftUI
 struct NetworkingApp: App {
     var body: some Scene {
         WindowGroup {
-//            CoinsView(service: CoinDataService())
-            CoinsView(service: MockCoinService())
+            CoinsView(service: CoinDataService())
+//            CoinsView(service: MockCoinService())
         }
     }
 }

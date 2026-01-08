@@ -32,6 +32,12 @@ struct CoinsView: View {
                                 Text(coin.symbol.uppercased())
                             }
                         }
+                        .onAppear {
+                            if coin == viewModel.coins.last {
+                                print("DEBUG: Paginate here")
+                                Task { await viewModel.fetchCoins() }
+                            }
+                        }
                         .font(.footnote)
                     }
                 }
