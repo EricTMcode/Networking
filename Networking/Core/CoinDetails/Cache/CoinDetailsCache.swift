@@ -1,5 +1,5 @@
 //
-//  CoinsDetailCache.swift
+//  CoinDetailsCache.swift
 //  Networking
 //
 //  Created by Eric on 08/01/2026.
@@ -7,9 +7,13 @@
 
 import Foundation
 
-class CoinsDetailCache {
+class CoinDetailsCache {
+
+    static let shared = CoinDetailsCache()
 
     private let cache = NSCache<NSString, NSData>()
+
+    private init() { }
 
     func set(_ coinDetails: CoinDetails, forkey key: String) {
         guard let data = try? JSONEncoder().encode(coinDetails) else { return }
