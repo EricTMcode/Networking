@@ -7,12 +7,17 @@
 
 import Foundation
 
-class CoinDataService: HTTPDataDownloader {
+protocol CoinServiceProtocol {
+    func fetchCoins() async throws -> [Coin]
+    func fetchCoinDetails(id: String) async throws -> CoinDetails?
+}
+
+class CoinDataService: CoinServiceProtocol, HTTPDataDownloader {
 
     init() {
         print("DEBUG: DID INIT SERVICE...")
     }
-    
+
     func fetchCoins() async throws -> [Coin] {
         guard let endpoint = allCoinsURLString else {
             throw CoinApiError.requestFailed(description: "Invalid Endpoint")
@@ -60,7 +65,6 @@ class CoinDataService: HTTPDataDownloader {
             ]
 
         return components.url?.absoluteString
-
     }
 
     private func coinDetailsURLString(id: String) -> String? {
