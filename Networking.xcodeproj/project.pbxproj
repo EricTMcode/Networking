@@ -21,6 +21,16 @@
 		077F39792F0FE2C000E9A740 /* MockCoinServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MockCoinServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		077F398B2F0FEB3700E9A740 /* Exceptions for "MockCoinServiceTests" folder in "Networking" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				TestData.swift,
+			);
+			target = 077F39422F0C1A8100E9A740 /* Networking */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		077F39452F0C1A8100E9A740 /* Networking */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -29,6 +39,9 @@
 		};
 		077F397A2F0FE2C000E9A740 /* MockCoinServiceTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				077F398B2F0FEB3700E9A740 /* Exceptions for "MockCoinServiceTests" folder in "Networking" target */,
+			);
 			path = MockCoinServiceTests;
 			sourceTree = "<group>";
 		};
