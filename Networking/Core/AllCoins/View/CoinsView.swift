@@ -50,5 +50,5 @@ struct CoinsView: View {
 }
 
 #Preview {
-    CoinsView(service: CoinDataService())
+    CoinsView(service: MockCoinService())
 }
